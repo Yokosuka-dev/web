@@ -1,0 +1,63 @@
+---
+import { getImage } from 'astro:assets';
+import heroSource from '../../assets/hero.png';
+import { links } from '../../data/site';
+
+const hero = await getImage({ src: heroSource, format: 'webp', width: 1024 });
+---
+
+<section class="hero" aria-label="Yokosuka.dev">
+  <div class="hero-media" style={`--hero: url(${hero.src})`}></div>
+</section>
+
+<div class="hero-cta">
+  <a class="btn btn-primary" href={links.discord}>Discordに参加する</a>
+  <span class="scroll-hint" aria-hidden="true">↓ scroll</span>
+</div>
+
+<style>
+  .hero {
+    /* ロゴ画像自体の地色と同値。ずらすと画像の縁が見える */
+    background-color: var(--navy);
+  }
+
+  .hero-media {
+    /* マスター画像の実寸。これを超えると拡大表示になるので上限にする */
+    max-width: 1024px;
+    margin-inline: auto;
+    /* マスター画像と同じ比率。cover でも切れずに横幅いっぱいに広がる */
+    aspect-ratio: 1024 / 465;
+    background-image: var(--hero);
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+  }
+
+  .hero-cta {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    padding: 24px 34px;
+    background: var(--navy);
+  }
+
+  .scroll-hint {
+    font: 10px var(--mono);
+    color: rgba(255, 255, 255, 0.55);
+  }
+
+  @media (max-width: 720px) {
+    .hero-cta {
+      padding: 16px;
+    }
+
+    .hero-cta .btn {
+      width: 100%;
+    }
+
+    .scroll-hint {
+      display: none;
+    }
+  }
+</style>

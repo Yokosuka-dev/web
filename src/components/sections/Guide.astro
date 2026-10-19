@@ -1,0 +1,120 @@
+---
+import { links, guide } from '../../data/site';
+---
+
+<section class="section" id="guide" aria-labelledby="guide-title">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="section-title">
+        <span class="label">#GUIDE</span>
+        <h2 id="guide-title">参加ガイド</h2>
+      </div>
+    </div>
+
+    <div class="guide-cards">
+      <div class="card card-accent">
+        <div class="card-body">
+          <h3>まずはDiscordに参加</h3>
+          <p class="muted">告知や連絡はDiscordを使用しています。基本的にはご参加ください。</p>
+        </div>
+        <a class="btn btn-primary" href={links.discord}>Discordに参加する</a>
+      </div>
+
+      {
+        guide.eventTypes.map((type) => (
+          <div class="card">
+            <div class="card-body">
+              <div class="card-head">
+                <h3>{type.title}</h3>
+                <span class:list={['badge', `badge-${type.badgeStyle}`]}>{type.badge}</span>
+              </div>
+              <p class="muted">{type.body}</p>
+            </div>
+            {type.action && (
+              <a class="btn btn-outline" href={type.action.url}>
+                {type.action.label}
+              </a>
+            )}
+          </div>
+        ))
+      }
+    </div>
+  </div>
+</section>
+
+<style>
+  .guide-cards {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+  }
+
+  .card {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    border: 1.5px solid var(--rule);
+    border-radius: var(--radius);
+    padding: 18px;
+  }
+
+  .card-accent {
+    border-color: var(--green);
+    background: var(--green-tint);
+  }
+
+  .card-body {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+
+  .card-head {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .card h3 {
+    font-size: 16px;
+    font-weight: 400;
+  }
+
+  .card-accent h3 {
+    font-size: 15px;
+  }
+
+  .badge {
+    font: 10px var(--mono);
+    padding: 4px 9px;
+    border-radius: 12px;
+    white-space: nowrap;
+  }
+
+  .badge-green {
+    color: var(--green-text);
+    border: 1.5px solid var(--green);
+  }
+
+  .badge-navy {
+    color: var(--navy);
+    border: 1.5px solid var(--navy-soft);
+  }
+
+  @media (max-width: 720px) {
+    .card {
+      flex-direction: column;
+      align-items: stretch;
+      padding: 12px;
+    }
+
+    .card .btn {
+      width: 100%;
+    }
+
+    .card-head {
+      justify-content: space-between;
+    }
+  }
+</style>

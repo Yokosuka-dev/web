@@ -1,0 +1,39 @@
+---
+import Base from '../layouts/Base.astro';
+---
+
+<Base title="ページが見つかりません — Yokosuka.dev">
+  <section class="section notfound">
+    <div class="wrap">
+      <span class="label">404</span>
+      <h1>ページが見つかりません</h1>
+      <p class="muted">URLが変わったか、削除された可能性があります。</p>
+      <a class="btn btn-outline" href="/">トップへ戻る</a>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .notfound {
+    border-bottom: none;
+  }
+
+  .notfound .wrap {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 12px;
+    padding-block: 60px;
+  }
+
+  .notfound .label {
+    font-size: 48px;
+    line-height: 1;
+  }
+
+  .notfound h1 {
+    font-size: 24px;
+    font-weight: 400;
+  }
+</style>

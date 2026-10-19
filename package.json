@@ -1,0 +1,31 @@
+{
+  "name": "yokosuka-dev-web",
+  "type": "module",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "check": "astro check",
+    "cf:dev": "wrangler dev",
+    "deploy": "astro build && wrangler deploy"
+  },
+  "devDependencies": {
+    "@astrojs/check": "^0.9.10",
+    "astro": "^7.4.0",
+    "sharp": "^0.35.5",
+    "typescript": "^5.9.2",
+    "wrangler": "^4.151.2"
+  },
+  "pnpm": {
+    "onlyBuiltDependencies": [
+      "esbuild",
+      "sharp",
+      "workerd"
+    ]
+  },
+  "dependencies": {
+    "@fontsource/noto-sans-jp": "^5.3.1"
+  }
+}

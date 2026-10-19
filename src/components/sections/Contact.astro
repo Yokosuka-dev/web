@@ -1,0 +1,40 @@
+---
+import { links } from '../../data/site';
+---
+
+<section class="section contact" id="contact" aria-labelledby="contact-title">
+  <div class="wrap">
+    <div class="section-title contact-title">
+      <span class="label">#CONTACT</span>
+      <h2 id="contact-title">お問い合わせ</h2>
+    </div>
+    <p class="muted">お問い合わせはGoogleフォームからお願いします</p>
+    <div class="contact-actions">
+      <a class="btn btn-navy" href={links.contactForm} target="_blank" rel="noopener noreferrer">Googleフォームで問い合わせ</a>
+    </div>
+  </div>
+</section>
+
+<style>
+  .contact .wrap {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+    text-align: center;
+  }
+
+  .contact-actions {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  @media (max-width: 720px) {
+    .contact-actions {
+      flex-direction: column;
+      width: 100%;
+    }
+  }
+</style>

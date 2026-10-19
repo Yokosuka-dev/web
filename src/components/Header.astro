@@ -1,0 +1,230 @@
+---
+import { site, nav, links, pastEvents } from '../data/site';
+
+// #events はイベント実績がまだない場合セクションごと出さないため、ナビからも除く
+// ページ内アンカーなのでトップページ以外では出さない
+const isRoot = Astro.url.pathname === '/';
+const visibleNav = isRoot
+  ? nav.filter((item) => item.id !== 'events' || pastEvents.length > 0)
+  : [];
+---
+
+<header class="site-header">
+  <div class="wrap bar">
+    <a class="logo" href="/">{site.name}</a>
+
+    <nav class="nav-desktop" aria-label="ページ内ナビゲーション">
+      {visibleNav.map((item) => <a href={`#${item.id}`}>#{item.id}</a>)}
+    </nav>
+
+    <button
+      class="nav-toggle"
+      type="button"
+      aria-expanded="false"
+      aria-controls="mobile-menu"
+      data-menu-toggle
+    >
+      <span class="visually-hidden">メニューを開く</span>
+      <span class="bars" aria-hidden="true"><i></i><i></i><i></i></span>
+    </button>
+  </div>
+
+  <div class="mobile-menu" id="mobile-menu" hidden data-menu-panel>
+    <p class="menu-caption">MENU</p>
+    <nav aria-label="モバイルナビゲーション">
+      {
+        visibleNav.map((item) => (
+          <a class="menu-item" href={`#${item.id}`}>
+            <span>{item.label}</span>
+            <span class="menu-anchor">#{item.id}</span>
+          </a>
+        ))
+      }
+    </nav>
+    <div class="menu-actions">
+      <a class="btn btn-primary btn-block" href={links.discord}>Discordに参加する</a>
+      <a class="btn btn-block menu-outline" href={links.connpass}>connpassを見る ↗</a>
+    </div>
+    <div class="menu-social">
+      <a href={links.discord}>Discord</a>
+      <a href={links.connpass}>connpass</a>
+      <a href={links.x}>X</a>
+    </div>
+  </div>
+</header>
+
+<style>
+  .site-header {
+    position: sticky;
+    top: 0;
+    z-index: 20;
+    background: var(--navy);
+    color: var(--header-fg);
+  }
+
+  .bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 18px;
+    padding-block: 15px;
+  }
+
+  .logo {
+    font-size: 15px;
+    text-decoration: none;
+  }
+
+  .nav-desktop {
+    display: flex;
+    align-items: center;
+    gap: 18px;
+    font-size: 13px;
+  }
+
+  .nav-desktop a {
+    text-decoration: none;
+    font-family: var(--mono);
+    font-size: 12px;
+  }
+
+  .nav-desktop a:hover {
+    color: var(--green);
+  }
+
+  .nav-toggle {
+    display: none;
+    background: none;
+    border: 0;
+    padding: 4px;
+    cursor: pointer;
+    color: inherit;
+  }
+
+  .bars {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    width: 20px;
+  }
+
+  .bars i {
+    height: 1.5px;
+    background: currentColor;
+    transition: transform 0.18s ease, opacity 0.18s ease;
+  }
+
+  .nav-toggle[aria-expanded='true'] .bars i:nth-child(1) {
+    transform: translateY(5.5px) rotate(45deg);
+    background: var(--green);
+  }
+
+  .nav-toggle[aria-expanded='true'] .bars i:nth-child(2) {
+    opacity: 0;
+  }
+
+  .nav-toggle[aria-expanded='true'] .bars i:nth-child(3) {
+    transform: translateY(-5.5px) rotate(-45deg);
+    background: var(--green);
+  }
+
+  .mobile-menu {
+    display: none;
+    flex-direction: column;
+    padding: 16px 16px 24px;
+    background: var(--navy);
+    min-height: calc(100dvh - 50px);
+  }
+
+  .mobile-menu[data-open] {
+    display: flex;
+  }
+
+  .menu-caption {
+    font: 9px var(--mono);
+    color: var(--navy-soft);
+    letter-spacing: 0.1em;
+    padding-bottom: 10px;
+  }
+
+  .menu-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 14px 2px;
+    border-bottom: 1px solid rgba(208, 214, 220, 0.18);
+    color: #f2f4f7;
+    font-size: 16px;
+    text-decoration: none;
+  }
+
+  .menu-anchor {
+    font: 11px var(--mono);
+    color: var(--navy-soft);
+  }
+
+  .menu-actions {
+    display: flex;
+    flex-direction: column;
+    gap: 9px;
+    margin-top: 22px;
+  }
+
+  .menu-outline {
+    border-color: var(--navy-soft);
+    color: var(--header-fg);
+  }
+
+  .menu-social {
+    margin-top: auto;
+    display: flex;
+    gap: 14px;
+    padding-top: 22px;
+    font: 11px var(--mono);
+    color: var(--navy-soft);
+  }
+
+  .menu-social a {
+    text-decoration: none;
+  }
+
+  @media (max-width: 720px) {
+    .bar {
+      padding-block: 13px;
+    }
+
+    .nav-desktop {
+      display: none;
+    }
+
+    .nav-toggle {
+      display: block;
+    }
+  }
+</style>
+
+<script>
+  const toggle = document.querySelector<HTMLButtonElement>('[data-menu-toggle]');
+  const panel = document.querySelector<HTMLElement>('[data-menu-panel]');
+
+  if (toggle && panel) {
+    const setOpen = (open: boolean) => {
+      toggle.setAttribute('aria-expanded', String(open));
+      panel.hidden = !open;
+      panel.toggleAttribute('data-open', open);
+      document.body.style.overflow = open ? 'hidden' : '';
+    };
+
+    toggle.addEventListener('click', () => {
+      setOpen(toggle.getAttribute('aria-expanded') !== 'true');
+    });
+
+    panel.addEventListener('click', (event) => {
+      if ((event.target as HTMLElement).closest('a')) setOpen(false);
+    });
+
+    document.addEventListener('keydown', (event) => {
+      if (event.key === 'Escape') setOpen(false);
+    });
+  }
+</script>

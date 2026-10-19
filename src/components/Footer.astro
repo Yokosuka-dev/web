@@ -1,0 +1,70 @@
+---
+import { site, links } from '../data/site';
+---
+
+<footer class="site-footer">
+  <div class="wrap inner">
+    <div class="brand">
+      <span class="brand-name">{site.name}</span>
+      <span class="brand-tagline">{site.tagline}</span>
+    </div>
+    <nav class="social" aria-label="外部リンク">
+      <a href={links.discord}>Discord</a>
+      <a href={links.connpass}>connpass</a>
+      <a href={links.x}>X</a>
+    </nav>
+  </div>
+</footer>
+
+<style>
+  .site-footer {
+    background: var(--navy);
+    color: var(--footer-fg);
+    font-size: 12px;
+  }
+
+  .inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 18px;
+    padding-block: 20px;
+  }
+
+  .brand {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+  }
+
+  .brand-name {
+    color: var(--header-fg);
+    font-size: 13px;
+  }
+
+  .brand-tagline {
+    font-size: 11px;
+  }
+
+  .social {
+    display: flex;
+    gap: 14px;
+  }
+
+  .social a {
+    text-decoration: none;
+  }
+
+  .social a:hover {
+    color: var(--green);
+  }
+
+  @media (max-width: 720px) {
+    .inner {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 12px;
+      padding-block: 16px;
+    }
+  }
+</style>

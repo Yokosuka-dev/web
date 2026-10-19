@@ -1,0 +1,45 @@
+---
+import { links } from '../../data/site';
+---
+
+<section class="closing" aria-labelledby="closing-title">
+  <div class="wrap closing-inner">
+    <div>
+      <h2 id="closing-title">まずはDiscordを覗いてみてください</h2>
+      <!-- <p class="muted">自己紹介チャンネルに一言だけでOK</p> -->
+    </div>
+    <a class="btn btn-primary" href={links.discord}>Discordに参加</a>
+  </div>
+</section>
+
+<style>
+  .closing-inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 18px;
+    padding-block: 30px;
+  }
+
+  .closing h2 {
+    font-size: 20px;
+    font-weight: 400;
+  }
+
+  @media (max-width: 720px) {
+    .closing-inner {
+      flex-direction: column;
+      align-items: stretch;
+      gap: 9px;
+      padding-block: 20px;
+    }
+
+    .closing h2 {
+      font-size: 16px;
+    }
+
+    .closing .btn {
+      width: 100%;
+    }
+  }
+</style>

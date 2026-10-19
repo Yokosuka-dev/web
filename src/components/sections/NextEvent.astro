@@ -1,0 +1,92 @@
+---
+import { nextEvent } from '../../data/site';
+---
+
+<section class="next-event" aria-labelledby="next-event-title">
+  <div class="wrap next-inner">
+    <div class="next-when">
+      <span class="next-label">NEXT EVENT</span>
+      <span class="next-date">{nextEvent.date}</span>
+    </div>
+    <div class="next-divider" aria-hidden="true"></div>
+    <div class="next-body">
+      <h2 id="next-event-title">{nextEvent.title}</h2>
+      <p class="muted">{nextEvent.meta}</p>
+    </div>
+    {nextEvent.url && (
+      <a class="btn btn-outline" href={nextEvent.url}>connpassで申し込む ↗</a>
+    )}
+  </div>
+</section>
+
+<style>
+  .next-event {
+    border-bottom: 1.5px dashed var(--rule);
+  }
+
+  .next-inner {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 18px;
+    padding-block: 18px;
+  }
+
+  .next-when {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+    white-space: nowrap;
+  }
+
+  .next-label {
+    font: 10px var(--mono);
+    color: var(--green-text);
+    letter-spacing: 0.08em;
+  }
+
+  .next-date {
+    font: 14px var(--mono);
+    color: var(--navy);
+  }
+
+  .next-divider {
+    width: 1.5px;
+    align-self: stretch;
+    background: repeating-linear-gradient(var(--rule) 0 4px, transparent 4px 8px);
+  }
+
+  .next-body {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  .next-body h2 {
+    font-size: 15px;
+    font-weight: 400;
+  }
+
+  @media (max-width: 720px) {
+    .next-inner {
+      flex-direction: column;
+      gap: 8px;
+      text-align: center;
+      padding-block: 16px;
+    }
+
+    .next-divider {
+      display: none;
+    }
+
+    .next-when {
+      flex-direction: row;
+      gap: 8px;
+      align-items: baseline;
+    }
+
+    .next-inner .btn {
+      width: 100%;
+    }
+  }
+</style>
